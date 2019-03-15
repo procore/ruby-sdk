@@ -33,7 +33,6 @@ module Procore
       @credentials = Procore::Auth::AccessTokenCredentials.new(
         client_id: client_id,
         client_secret: client_secret,
-        host: @options[:host],
       )
       @store = store
     end

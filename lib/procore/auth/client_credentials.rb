@@ -3,15 +3,15 @@ require "oauth2"
 module Procore
   module Auth
     class ClientCredentials
-      attr_reader :client_id, :client_secret, :host
-      def initialize(client_id:, client_secret:, host:)
+      attr_reader :client_id, :client_secret
+
+      def initialize(client_id:, client_secret:)
         unless client_id && client_secret
           raise OAuthError.new("No client_id or client_secret provided.")
         end
 
         @client_id = client_id
         @client_secret = client_secret
-        @host = host
       end
 
       def refresh(*)
@@ -43,7 +43,7 @@ module Procore
         OAuth2::Client.new(
           client_id,
           client_secret,
-          site: "#{host}/oauth/token",
+          site: "#{Procore.configuration.auth_host}/oauth/token",
         )
       end
     end
